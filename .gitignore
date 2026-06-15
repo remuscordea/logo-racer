@@ -8,7 +8,7 @@ build/
 .DS_Store
 
 # Prisma
-apps/api/prisma/migrations/dev.db
+apps/api/prisma/migrations/
 
 # Vite
 apps/web/dist/
