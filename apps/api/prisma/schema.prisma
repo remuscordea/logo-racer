@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Brand {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  logoSvgPath String
+  difficulty  Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model World {
+  id          Int     @id @default(autoincrement())
+  name        String
+  order       Int
+  description String
+  levels      Level[]
+}
+
+model Level {
+  id             Int    @id @default(autoincrement())
+  worldId        Int
+  world          World  @relation(fields: [worldId], references: [id])
+  order          Int
+  exerciseConfig Json
+
+  @@unique([worldId, order])
+}

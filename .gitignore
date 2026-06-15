@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+
+# Prisma
+apps/api/prisma/migrations/dev.db
+
+# Vite
+apps/web/dist/
+apps/web/.vite/
