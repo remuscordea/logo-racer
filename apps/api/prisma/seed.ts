@@ -4,14 +4,16 @@ import { INITIAL_BRANDS, INITIAL_WORLDS, INITIAL_LEVELS } from "@logo-racer/shar
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("Seeding brands…");
+  await prisma.level.deleteMany();
+  await prisma.world.deleteMany();
   await prisma.brand.deleteMany();
+
+  console.log("Seeding brands…");
   for (const b of INITIAL_BRANDS) {
     await prisma.brand.create({ data: b });
   }
 
   console.log("Seeding worlds…");
-  await prisma.world.deleteMany();
   for (const w of INITIAL_WORLDS) {
     await prisma.world.create({
       data: { name: w.name, order: w.order, description: w.description },
@@ -19,7 +21,6 @@ async function main() {
   }
 
   console.log("Seeding levels…");
-  await prisma.level.deleteMany();
 
   const brands = await prisma.brand.findMany();
   const brandByName = Object.fromEntries(brands.map((b) => [b.name, b]));
