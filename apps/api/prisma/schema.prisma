@@ -10,7 +10,7 @@ datasource db {
 model Brand {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  logoSvgPath String
+  logoPngPath String
   difficulty  Int      @default(1)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

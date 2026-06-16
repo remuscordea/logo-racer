@@ -8,7 +8,7 @@ export enum ExerciseType {
 export interface Brand {
   id: number;
   name: string;
-  logoSvgPath: string;
+  logoPngPath: string;
   difficulty: number;
   createdAt: string;
   updatedAt: string;

@@ -29,12 +29,12 @@ persisting progress in a database.
 - React Native / Expo
 - Reuse: exercise types, validation logic, API client (via shared package)
 
-### Monorepo (recommended)
+### Monorepo
 ```
 logo-racer/
 ├── apps/
 │   ├── api/          # Fastify backend
-│   └── web/          # React frontend
+│   └── web/          # React frontend (logos at public/assets/logos/<brand>.png)
 ├── packages/
 │   └── shared/       # TS types, constants, shared exercise logic
 ├── PLAN.md
@@ -48,8 +48,8 @@ logo-racer/
 ### Brand
 - id
 - name (e.g. "Toyota")
-- logoSvgPath (reference to SVG asset)
-- difficulty (1-3, used for distractor selection)
+- logoPngPath (path to PNG 256×256 asset, e.g. "/assets/logos/toyota.png")
+- difficulty (1–3, used for distractor selection)
 - createdAt / updatedAt
 
 ### World (themed world)
@@ -89,12 +89,32 @@ logo-racer/
 
 ---
 
-## Initial 15 Brands
-Toyota, BMW, Mercedes-Benz, Audi, Volkswagen, Ford, Honda, Ferrari,
-Lamborghini, Porsche, Tesla, Renault, Fiat, Jeep, Mini
+## Brands (18 total)
 
-(Adding new brands = insert into the `Brand` table + new SVG asset — no
-code changes required)
+Logos are PNG 256×256 at `apps/web/public/assets/logos/<brand>.png`.
+
+| Brand      | File            | Difficulty |
+|------------|-----------------|------------|
+| BMW        | bmw.png         | 1          |
+| Ferrari    | ferrari.png     | 1          |
+| Ford       | ford.png        | 1          |
+| Tesla      | tesla.png       | 1          |
+| Toyota     | toyota.png      | 1          |
+| VW         | vw.png          | 1          |
+| Audi       | audi.png        | 2          |
+| Dacia      | dacia.png       | 2          |
+| Hyundai    | hyundai.png     | 2          |
+| Kia        | kia.png         | 2          |
+| Renault    | renault.png     | 2          |
+| Volvo      | volvo.png       | 2          |
+| Bentley    | bentley.png     | 3          |
+| Citroën    | citroen.png     | 3          |
+| Nissan     | nissan.png      | 3          |
+| Porsche    | porsche.png     | 3          |
+| Subaru     | subaru.png      | 3          |
+| Suzuki     | suzuki.png      | 3          |
+
+(Adding new brands = insert into the `Brand` table + drop a PNG in `public/assets/logos/` — no code changes required)
 
 ---
 
@@ -102,7 +122,7 @@ code changes required)
 
 1. **LOGO_TO_NAME** — logo image + 4 text options (1 correct, 3 distractors)
 2. **NAME_TO_LOGO** — brand name (text) + 4 image options (1 correct, 3 distractors)
-3. **MATCHING** — "tap to connect": 5 logos on the left, 5 names on the right;
+3. **MATCHING** — "tap to connect": logos on the left, names on the right;
    the child taps a logo then the matching name; correct pair → green
    animation + lock; wrong pair → shake + reset selection
 4. **TRUE_FALSE** — "Is this logo from [Brand X]?" Yes/No, for quick review
@@ -112,18 +132,38 @@ to avoid combinations that are too easy/hard.
 
 ---
 
-## Worlds & Levels Roadmap
+## Worlds & Levels
 
-- **World 1 — "Famous Brands"**: Ferrari, BMW, Mercedes-Benz, Toyota, Tesla
-- **World 2 — "On the Street"**: Volkswagen, Ford, Honda, Renault, Fiat
-- **World 3 — "Special Cars"**: Lamborghini, Porsche, Audi, Jeep, Mini
+### World 1 — "Famous Brands"
+Brands (all difficulty 1, most recognisable globally): BMW, Ferrari, Ford, Tesla, Toyota, VW
 
-Each world: 3-5 levels, mix of exercise types, increasing difficulty
-(more similar distractors toward the end). At the end of each world: a
-badge/diploma + celebration animation.
+| Level | Exercise types          | Brands covered                    |
+|-------|-------------------------|-----------------------------------|
+| 1     | LOGO_TO_NAME            | BMW, Ferrari, Toyota, VW          |
+| 2     | NAME_TO_LOGO            | BMW, Ferrari, Toyota, VW, Ford    |
+| 3     | MATCHING + TRUE_FALSE   | BMW, Ferrari, Ford, Tesla, Toyota, VW |
 
-Visual map in a "path with stones" style, where the rabbit mascot advances
-as the child completes levels.
+### World 2 — "On the Street"
+Brands (difficulty 2, everyday cars): Audi, Dacia, Hyundai, Kia, Renault, Volvo
+
+| Level | Exercise types          | Brands covered                         |
+|-------|-------------------------|----------------------------------------|
+| 1     | LOGO_TO_NAME            | Audi, Kia, Renault, Volvo              |
+| 2     | NAME_TO_LOGO            | Audi, Kia, Renault, Volvo, Hyundai     |
+| 3     | MATCHING + TRUE_FALSE   | Audi, Dacia, Hyundai, Kia, Renault, Volvo |
+
+### World 3 — "Special Cars"
+Brands (difficulty 3, sporty / less common): Bentley, Citroën, Nissan, Porsche, Subaru, Suzuki
+
+| Level | Exercise types          | Brands covered                              |
+|-------|-------------------------|---------------------------------------------|
+| 1     | LOGO_TO_NAME            | Nissan, Porsche, Citroën, Suzuki            |
+| 2     | NAME_TO_LOGO            | Nissan, Porsche, Citroën, Suzuki, Subaru    |
+| 3     | MATCHING + TRUE_FALSE   | Bentley, Citroën, Nissan, Porsche, Subaru, Suzuki |
+
+Each world ends with a badge/diploma + celebration animation.
+
+Visual map: "path with stones" style, the rabbit mascot advances as the child completes levels.
 
 ---
 
@@ -142,23 +182,24 @@ identical in both languages — they're proper nouns.
 
 ## Legal Note (logos)
 Car brand logos are registered trademarks. For personal/family use,
-recreating them as simplified SVGs is acceptable. If the app is ever
+recreating them as simplified PNGs is acceptable. If the app is ever
 published (App Store, monetization, etc.), it will be necessary to
 re-evaluate using stylized/silhouette representations instead of exact logos.
 
 ---
 
-## Implementation Phases (suggestion for Claude Code)
+## Implementation Phases
 
-**Phase 0 — Setup**
+**Phase 0 — Setup** ✅
 - Monorepo (apps/api, apps/web, packages/shared)
 - Prisma + PostgreSQL (initial schema: Brand, World, Level)
 - Fastify skeleton with basic REST routes (`/brands`, `/worlds`, `/levels`)
 - Vite + React + TS + MUI skeleton, basic custom theme
 - i18n setup (RO/EN toggle working)
 
-**Phase 1 — Data + API**
-- Seed DB with 15 brands + 3 worlds + initial levels
+**Phase 1 — Data + API** ✅
+- Updated brand list to 18 brands (PNG assets)
+- Seed DB with 18 brands + 3 worlds + 9 levels
 - Complete REST endpoints for brands/worlds/levels
 
 **Phase 2 — Exercises (core gameplay)**
