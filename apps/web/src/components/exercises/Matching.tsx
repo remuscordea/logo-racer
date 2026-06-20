@@ -86,9 +86,9 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                 key={brand.id}
                 onClick={() => handleLogoClick(brand.id)}
                 sx={{
-                  bgcolor: isMatched ? "success.light" : isSelected ? "#FFF0EB" : "white",
+                  bgcolor: isMatched ? "success.light" : isSelected ? "#EBF3FF" : "white",
                   border: 2.5,
-                  borderColor: isMatched ? "success.main" : isSelected ? "primary.main" : "#E9ECEF",
+                  borderColor: isMatched ? "success.main" : isSelected ? "#4A90D9" : "#E9ECEF",
                   borderRadius: 3,
                   p: 1.5,
                   display: "flex",
@@ -97,7 +97,7 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                   opacity: isMatched ? 0.75 : 1,
                   animation: isShaking ? "shake 0.45s ease" : "none",
                   transition: "background-color 0.15s, border-color 0.15s",
-                  boxShadow: isSelected ? "0 0 0 3px rgba(255,107,53,0.2)" : "0 2px 8px rgba(0,0,0,0.07)",
+                  boxShadow: isSelected ? "0 0 0 3px rgba(74,144,217,0.25)" : "0 2px 8px rgba(0,0,0,0.07)",
                 }}
               >
                 <Box
