@@ -40,12 +40,13 @@ export function ExerciseScreen() {
   useEffect(() => {
     async function load() {
       try {
-        const [level, allBrands] = await Promise.all([
+        const [level, worldBrands, allBrands] = await Promise.all([
           api.level(Number(levelId)),
+          api.worldBrands(Number(worldId)),
           api.brands(),
         ]);
         const map = new Map(allBrands.map((b) => [b.id, b]));
-        const q = buildQueue(level, allBrands);
+        const q = buildQueue(level, worldBrands, allBrands);
         setBrandMap(map);
         setQueue(q);
         initialQueueRef.current = q;
@@ -57,7 +58,7 @@ export function ExerciseScreen() {
       }
     }
     void load();
-  }, [levelId, t]);
+  }, [levelId, worldId, t]);
 
   const handleAnswer = useCallback(
     (correct: boolean) => {
@@ -101,12 +102,28 @@ export function ExerciseScreen() {
   );
 
   function handleReplay() {
-    const fresh = initialQueueRef.current.map((ex) => ({ ...ex, isRetry: false }));
-    setQueue(fresh);
-    setCurrentIdx(0);
-    setFirstAttempt({});
-    setMascot("neutral");
-    setDone(false);
+    // Re-fetch to get a fresh random brand selection
+    void (async () => {
+      try {
+        const [level, worldBrands, allBrands] = await Promise.all([
+          api.level(Number(levelId)),
+          api.worldBrands(Number(worldId)),
+          api.brands(),
+        ]);
+        const map = new Map(allBrands.map((b) => [b.id, b]));
+        const q = buildQueue(level, worldBrands, allBrands);
+        setBrandMap(map);
+        setQueue(q);
+        initialQueueRef.current = q;
+        setTotalOriginal(q.length);
+      } catch {
+        // silently keep existing queue on error
+      }
+      setCurrentIdx(0);
+      setFirstAttempt({});
+      setMascot("neutral");
+      setDone(false);
+    })();
   }
 
   if (loading) {

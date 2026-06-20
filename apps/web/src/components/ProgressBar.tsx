@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import Typography from "@mui/material/Typography";
 
 interface Props {
   current: number; // 1-based
@@ -12,15 +11,18 @@ export function ProgressBar({ current, total }: Props) {
 
   return (
     <Box sx={{ width: "100%", px: 2, pt: 2 }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
-        <Typography variant="caption" color="text.secondary">
-          {current}/{total}
-        </Typography>
-      </Box>
       <LinearProgress
         variant="determinate"
         value={pct}
-        sx={{ height: 10, borderRadius: 5 }}
+        sx={{
+          height: 14,
+          borderRadius: 7,
+          bgcolor: "#E9ECEF",
+          "& .MuiLinearProgress-bar": {
+            borderRadius: 7,
+            background: "linear-gradient(90deg, #FF6B35 0%, #FF8C42 100%)",
+          },
+        }}
       />
     </Box>
   );

@@ -12,44 +12,55 @@ interface Props {
   onAnswer: (correct: boolean) => void;
 }
 
+const OPTION_COLORS = ["#FF6B35", "#FFA502", "#2ED573", "#1E90FF"];
+
 export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
   const { t } = useTranslation();
   const correct = brandMap.get(exercise.correctId)!;
 
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 480, mx: "auto" }}>
-      <Typography variant="h6" textAlign="center">
+      <Typography variant="h6" fontWeight={700} textAlign="center" color="text.primary">
         {t("exercise.logoToName.question")}
       </Typography>
 
       <Box
         sx={{
           bgcolor: "white",
-          borderRadius: 3,
-          p: 2,
-          boxShadow: 2,
+          borderRadius: 4,
+          p: 3,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
           display: "flex",
           justifyContent: "center",
+          width: "100%",
         }}
       >
         <Box
           component="img"
           src={correct.logoPngPath}
           alt="Brand logo"
-          sx={{ width: 160, height: 160, objectFit: "contain" }}
+          sx={{ width: 180, height: 180, objectFit: "contain" }}
         />
       </Box>
 
       <Stack spacing={1.5} sx={{ width: "100%" }}>
-        {exercise.optionIds.map((id) => {
+        {exercise.optionIds.map((id, i) => {
           const brand = brandMap.get(id)!;
+          const color = OPTION_COLORS[i % OPTION_COLORS.length];
           return (
             <Button
               key={id}
-              variant="outlined"
+              variant="contained"
               size="large"
               onClick={() => onAnswer(id === exercise.correctId)}
-              sx={{ borderRadius: 3, py: 1.5, fontSize: "1rem", textTransform: "none" }}
+              sx={{
+                bgcolor: color,
+                "&:hover": { bgcolor: color, filter: "brightness(0.92)" },
+                borderRadius: 3,
+                py: 2,
+                fontSize: "1rem",
+                boxShadow: `0 4px 12px ${color}55`,
+              }}
             >
               {brand.name}
             </Button>
