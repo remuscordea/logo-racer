@@ -54,9 +54,11 @@ export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
                 borderRadius: 3,
                 py: 2,
                 fontSize: "1rem",
-                bgcolor: "#4A90D9",
-                "&:hover": { bgcolor: "#3A7BC8" },
-                boxShadow: "0 4px 12px rgba(74,144,217,0.35)",
+                bgcolor: "white",
+                color: "text.primary",
+                border: "3px solid #bbaaf0",
+                boxShadow: "none",
+                "&:hover": { bgcolor: "#f5f2ff", borderColor: "#a090e0", boxShadow: "none" },
               }}
             >
               {brand.name}

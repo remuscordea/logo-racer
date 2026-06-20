@@ -86,9 +86,9 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                 key={brand.id}
                 onClick={() => handleLogoClick(brand.id)}
                 sx={{
-                  bgcolor: isMatched ? "success.light" : isSelected ? "#EBF3FF" : "white",
-                  border: 2.5,
-                  borderColor: isMatched ? "success.main" : isSelected ? "#4A90D9" : "#E9ECEF",
+                  bgcolor: isMatched ? "success.light" : isSelected ? "#f5f2ff" : "white",
+                  border: "3px solid",
+                  borderColor: isMatched ? "success.main" : isSelected ? "#a090e0" : "#bbaaf0",
                   borderRadius: 3,
                   p: 1.5,
                   display: "flex",
@@ -97,7 +97,7 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                   opacity: isMatched ? 0.75 : 1,
                   animation: isShaking ? "shake 0.45s ease" : "none",
                   transition: "background-color 0.15s, border-color 0.15s",
-                  boxShadow: isSelected ? "0 0 0 3px rgba(74,144,217,0.25)" : "0 2px 8px rgba(0,0,0,0.07)",
+                  boxShadow: "none",
                 }}
               >
                 <Box
@@ -121,8 +121,8 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                 onClick={() => handleNameClick(brand.id)}
                 sx={{
                   bgcolor: isMatched ? "success.light" : "white",
-                  border: 2.5,
-                  borderColor: isMatched ? "success.main" : "#E9ECEF",
+                  border: "3px solid",
+                  borderColor: isMatched ? "success.main" : "#bbaaf0",
                   borderRadius: 3,
                   px: 2,
                   display: "flex",
@@ -131,8 +131,8 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                   minHeight: 76,
                   cursor: isMatched ? "default" : "pointer",
                   opacity: isMatched ? 0.75 : 1,
-                  transition: "background-color 0.15s",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
+                  transition: "background-color 0.15s, border-color 0.15s",
+                  boxShadow: "none",
                 }}
               >
                 <Typography fontWeight={800} textAlign="center" fontSize="0.9rem">
