@@ -12,8 +12,6 @@ interface Props {
   onAnswer: (correct: boolean) => void;
 }
 
-const OPTION_COLORS = ["#FF6B35", "#FFA502", "#2ED573", "#1E90FF"];
-
 export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
   const { t } = useTranslation();
   const correct = brandMap.get(exercise.correctId)!;
@@ -44,9 +42,8 @@ export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
       </Box>
 
       <Stack spacing={1.5} sx={{ width: "100%" }}>
-        {exercise.optionIds.map((id, i) => {
+        {exercise.optionIds.map((id) => {
           const brand = brandMap.get(id)!;
-          const color = OPTION_COLORS[i % OPTION_COLORS.length];
           return (
             <Button
               key={id}
@@ -54,12 +51,10 @@ export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
               size="large"
               onClick={() => onAnswer(id === exercise.correctId)}
               sx={{
-                bgcolor: color,
-                "&:hover": { bgcolor: color, filter: "brightness(0.92)" },
                 borderRadius: 3,
                 py: 2,
                 fontSize: "1rem",
-                boxShadow: `0 4px 12px ${color}55`,
+                boxShadow: "0 4px 12px rgba(255,107,53,0.35)",
               }}
             >
               {brand.name}

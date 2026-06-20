@@ -53,21 +53,19 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
       <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
         <Button
           variant="contained"
-          color="success"
           size="large"
           fullWidth
           onClick={() => handleAnswer(true)}
-          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(46,213,115,0.4)" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(255,107,53,0.35)" }}
         >
           {t("exercise.yes")}
         </Button>
         <Button
           variant="contained"
-          color="error"
           size="large"
           fullWidth
           onClick={() => handleAnswer(false)}
-          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(255,71,87,0.4)" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(255,107,53,0.35)" }}
         >
           {t("exercise.no")}
         </Button>
