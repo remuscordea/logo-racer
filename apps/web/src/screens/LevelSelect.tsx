@@ -45,7 +45,7 @@ export function LevelSelect() {
           onClick={() => navigate("/")}
           sx={{ textTransform: "none", fontWeight: 700, color: "text.secondary" }}
         >
-          ← {t("nav.worlds")}
+          {t("nav.worlds")}
         </Button>
       </Box>
 
