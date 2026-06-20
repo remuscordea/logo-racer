@@ -46,16 +46,18 @@ export function NameToLogo({ exercise, brandMap, onAnswer }: Props) {
                 onClick={() => onAnswer(id === exercise.correctId)}
                 sx={{
                   bgcolor: "white",
+                  border: 2.5,
+                  borderColor: "#4A90D9",
                   borderRadius: 3,
                   p: 2,
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.10)",
+                  boxShadow: "0 4px 16px rgba(74,144,217,0.18)",
                   cursor: "pointer",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   aspectRatio: "1",
                   transition: "transform 0.12s, box-shadow 0.12s",
-                  "&:hover": { transform: "scale(1.05)", boxShadow: "0 8px 24px rgba(0,0,0,0.18)" },
+                  "&:hover": { transform: "scale(1.05)", boxShadow: "0 8px 24px rgba(74,144,217,0.30)" },
                   "&:active": { transform: "scale(0.97)" },
                 }}
               >
