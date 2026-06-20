@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function NameToLogo({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
   const correct = brandMap.get(exercise.correctId)!;
 
   return (
@@ -20,7 +22,7 @@ export function NameToLogo({ exercise, brandMap, onAnswer }: Props) {
         {correct.name}
       </Typography>
       <Typography variant="h6" textAlign="center">
-        Which logo is this brand?
+        {t("exercise.nameToLogo.question")}
       </Typography>
 
       <Grid container spacing={2} justifyContent="center">

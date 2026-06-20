@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -12,12 +13,13 @@ interface Props {
 }
 
 export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
   const correct = brandMap.get(exercise.correctId)!;
 
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 480, mx: "auto" }}>
       <Typography variant="h6" textAlign="center">
-        What brand is this?
+        {t("exercise.logoToName.question")}
       </Typography>
 
       <Box

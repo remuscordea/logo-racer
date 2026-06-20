@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export function Matching({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
   const logos = useMemo(
     () => shuffle(exercise.pairIds.map((id) => brandMap.get(id)!)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +60,7 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
   return (
     <Stack alignItems="center" spacing={2} sx={{ width: "100%", maxWidth: 520, mx: "auto" }}>
       <Typography variant="h6" textAlign="center">
-        Match each logo to its brand name!
+        {t("exercise.matching.question")}
       </Typography>
 
       <style>{`

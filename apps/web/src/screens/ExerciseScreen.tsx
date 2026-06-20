@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
@@ -21,6 +22,7 @@ const FEEDBACK_MS = 900;
 export function ExerciseScreen() {
   const { worldId, levelId } = useParams<{ worldId: string; levelId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [brandMap, setBrandMap] = useState<Map<number, Brand>>(new Map());
   const [queue, setQueue] = useState<Exercise[]>([]);
@@ -50,12 +52,12 @@ export function ExerciseScreen() {
         setTotalOriginal(q.length);
         setLoading(false);
       } catch {
-        setError("Failed to load level. Is the API running on localhost:3001?");
+        setError(t("error.levelLoadFailed"));
         setLoading(false);
       }
     }
     void load();
-  }, [levelId]);
+  }, [levelId, t]);
 
   const handleAnswer = useCallback(
     (correct: boolean) => {
@@ -161,7 +163,7 @@ export function ExerciseScreen() {
           color="text.secondary"
           sx={{ mb: 1 }}
         >
-          Let's try again!
+          {t("exercise.tryAgain")}
         </Typography>
       )}
 

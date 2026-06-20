@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -5,15 +6,23 @@ import Typography from "@mui/material/Typography";
 import { Mascot } from "../components/Mascot";
 
 interface Props {
-  firstAttemptResults: Record<string, boolean>; // exerciseId → correct?
+  firstAttemptResults: Record<string, boolean>;
   onReplay: () => void;
   onBack: () => void;
 }
 
 export function LevelSummary({ firstAttemptResults, onReplay, onBack }: Props) {
+  const { t } = useTranslation();
   const total = Object.keys(firstAttemptResults).length;
   const correct = Object.values(firstAttemptResults).filter(Boolean).length;
   const perfect = correct === total;
+  const goodEnough = correct >= total / 2;
+
+  const headline = perfect
+    ? t("summary.perfect")
+    : goodEnough
+    ? t("summary.wellDone")
+    : t("summary.keepGoing");
 
   return (
     <Box
@@ -28,10 +37,10 @@ export function LevelSummary({ firstAttemptResults, onReplay, onBack }: Props) {
       }}
     >
       <Stack alignItems="center" spacing={3} sx={{ maxWidth: 400, width: "100%" }}>
-        <Mascot state={perfect ? "happy" : correct >= total / 2 ? "happy" : "sad"} size={100} />
+        <Mascot state={goodEnough ? "happy" : "sad"} size={100} />
 
         <Typography variant="h4" fontWeight="bold" textAlign="center">
-          {perfect ? "Perfect! 🎉" : correct >= total / 2 ? "Well done! 👍" : "Keep going! 💪"}
+          {headline}
         </Typography>
 
         <Box
@@ -48,7 +57,7 @@ export function LevelSummary({ firstAttemptResults, onReplay, onBack }: Props) {
             {correct}/{total}
           </Typography>
           <Typography variant="body1" color="text.secondary" mt={0.5}>
-            correct on first try
+            {t("summary.correctOnFirstTry")}
           </Typography>
         </Box>
 
@@ -60,7 +69,7 @@ export function LevelSummary({ firstAttemptResults, onReplay, onBack }: Props) {
             onClick={onReplay}
             sx={{ borderRadius: 3, textTransform: "none" }}
           >
-            Play again
+            {t("summary.playAgain")}
           </Button>
           <Button
             variant="contained"
@@ -69,7 +78,7 @@ export function LevelSummary({ firstAttemptResults, onReplay, onBack }: Props) {
             onClick={onBack}
             sx={{ borderRadius: 3, textTransform: "none" }}
           >
-            Back to levels
+            {t("summary.backToLevels")}
           </Button>
         </Stack>
       </Stack>

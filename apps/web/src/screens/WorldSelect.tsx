@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -15,6 +16,7 @@ const WORLD_COLORS = ["#FF6F61", "#FFD166", "#06D6A0"];
 
 export function WorldSelect() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [worlds, setWorlds] = useState<WorldWithCount[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,10 +29,10 @@ export function WorldSelect() {
         setLoading(false);
       })
       .catch(() => {
-        setError("Could not reach API on localhost:3001.");
+        setError(t("error.apiUnreachable"));
         setLoading(false);
       });
-  }, []);
+  }, [t]);
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
@@ -44,14 +46,14 @@ export function WorldSelect() {
         }}
       >
         <Typography variant="h5" fontWeight="bold" color="primary">
-          🚗 Logo Racer
+          🚗 {t("app.title")}
         </Typography>
         <LanguageToggle />
       </Box>
 
       <Stack spacing={2} sx={{ p: 3, maxWidth: 480, mx: "auto" }}>
         <Typography variant="h6" fontWeight="bold">
-          Choose a world
+          {t("worlds.title")}
         </Typography>
 
         {loading && <CircularProgress sx={{ mx: "auto" }} />}
@@ -65,15 +67,16 @@ export function WorldSelect() {
             <CardActionArea onClick={() => navigate(`/worlds/${world.id}`)}>
               <Box sx={{ bgcolor: WORLD_COLORS[i % WORLD_COLORS.length], px: 3, py: 2 }}>
                 <Typography variant="h6" fontWeight="bold" color="white">
-                  World {world.order} — {world.name}
+                  {t("worlds.worldNumber", { order: world.order })} —{" "}
+                  {t(`worlds.order.${world.order}.name`)}
                 </Typography>
                 <Typography variant="body2" color="white" sx={{ opacity: 0.85 }}>
-                  {world.description}
+                  {t(`worlds.order.${world.order}.description`)}
                 </Typography>
               </Box>
               <CardContent>
                 <Typography variant="caption" color="text.secondary">
-                  {world._count.levels} levels
+                  {t("worlds.levelCount", { count: world._count.levels })}
                 </Typography>
               </CardContent>
             </CardActionArea>

@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
   const target = brandMap.get(exercise.targetBrandId)!;
   const shown = brandMap.get(exercise.shownBrandId)!;
 
@@ -22,11 +24,11 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 400, mx: "auto" }}>
       <Typography variant="h6" textAlign="center">
-        Is this the logo of{" "}
-        <Box component="span" fontWeight="bold">
-          {target.name}
-        </Box>
-        ?
+        <Trans
+          i18nKey="exercise.trueFalse.question"
+          values={{ name: target.name }}
+          components={{ bold: <Box component="span" fontWeight="bold" /> }}
+        />
       </Typography>
 
       <Box
@@ -56,7 +58,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           onClick={() => handleAnswer(true)}
           sx={{ borderRadius: 3, py: 2, fontSize: "1.1rem", textTransform: "none" }}
         >
-          ✅ Yes
+          {t("exercise.yes")}
         </Button>
         <Button
           variant="contained"
@@ -66,7 +68,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           onClick={() => handleAnswer(false)}
           sx={{ borderRadius: 3, py: 2, fontSize: "1.1rem", textTransform: "none" }}
         >
-          ❌ No
+          {t("exercise.no")}
         </Button>
       </Stack>
     </Stack>
