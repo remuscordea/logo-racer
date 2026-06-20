@@ -2,5 +2,67 @@
   "app": {
     "title": "Logo Racer",
     "tagline": "Învață mărcile de mașini și aleargă spre linia de sosire!"
+  },
+  "nav": {
+    "worlds": "← Lumi"
+  },
+  "worlds": {
+    "title": "Alege o lume",
+    "worldNumber": "Lumea {{order}}",
+    "levelCount_one": "{{count}} nivel",
+    "levelCount_other": "{{count}} niveluri",
+    "order": {
+      "1": {
+        "name": "Mărci Faimoase",
+        "description": "Cele mai cunoscute mărci de mașini din lume."
+      },
+      "2": {
+        "name": "Pe Stradă",
+        "description": "Mașini pe care le vezi în fiecare zi pe stradă."
+      },
+      "3": {
+        "name": "Mașini Speciale",
+        "description": "Mașini sport și deosebite."
+      }
+    }
+  },
+  "levels": {
+    "label": "Nivelul {{order}}"
+  },
+  "exerciseType": {
+    "LOGO_TO_NAME": "Logo → Nume",
+    "NAME_TO_LOGO": "Nume → Logo",
+    "MATCHING": "Potrivire",
+    "TRUE_FALSE": "Adevărat / Fals"
+  },
+  "exercise": {
+    "tryAgain": "Să mai încercăm!",
+    "yes": "✅ Da",
+    "no": "❌ Nu",
+    "logoToName": {
+      "question": "Ce marcă este aceasta?"
+    },
+    "nameToLogo": {
+      "question": "Care este logo-ul acestei mărci?"
+    },
+    "trueFalse": {
+      "question": "Acesta este logo-ul <bold>{{name}}</bold>?"
+    },
+    "matching": {
+      "question": "Potrivește fiecare logo cu numele mărcii!"
+    }
+  },
+  "summary": {
+    "perfect": "Perfect! 🎉",
+    "wellDone": "Bravo! 👍",
+    "keepGoing": "Continuă! 💪",
+    "correctOnFirstTry": "corecte din prima",
+    "playAgain": "Joacă din nou",
+    "backToLevels": "Înapoi la niveluri"
+  },
+  "error": {
+    "apiUnreachable": "Nu s-a putut contacta API-ul. Rulează pe localhost:3001?",
+    "loadFailed": "Nu s-a putut încărca conținutul. Încearcă din nou.",
+    "levelLoadFailed": "Eroare la încărcarea nivelului. Rulează API-ul pe localhost:3001?"
   }
 }

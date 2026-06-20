@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -14,6 +15,7 @@ import type { WorldWithLevels } from "../api/client";
 export function LevelSelect() {
   const { worldId } = useParams<{ worldId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [world, setWorld] = useState<WorldWithLevels | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,16 +28,16 @@ export function LevelSelect() {
         setLoading(false);
       })
       .catch(() => {
-        setError("Could not load world.");
+        setError(t("error.loadFailed"));
         setLoading(false);
       });
-  }, [worldId]);
+  }, [worldId, t]);
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <Box sx={{ px: 2, pt: 2 }}>
         <Button onClick={() => navigate("/")} sx={{ textTransform: "none" }}>
-          ← Worlds
+          {t("nav.worlds")}
         </Button>
       </Box>
 
@@ -46,26 +48,24 @@ export function LevelSelect() {
         {world && (
           <>
             <Typography variant="h5" fontWeight="bold">
-              {world.name}
+              {t(`worlds.order.${world.order}.name`)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {world.description}
+              {t(`worlds.order.${world.order}.description`)}
             </Typography>
 
             {world.levels.map((level) => (
               <Card key={level.id} sx={{ borderRadius: 4, boxShadow: 2 }}>
                 <CardActionArea
-                  onClick={() =>
-                    navigate(`/worlds/${worldId}/levels/${level.id}`)
-                  }
+                  onClick={() => navigate(`/worlds/${worldId}/levels/${level.id}`)}
                 >
                   <CardContent>
                     <Typography variant="h6" fontWeight="bold">
-                      Level {level.order}
+                      {t("levels.label", { order: level.order })}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       {(level.exerciseConfig as Array<{ type: string }>)
-                        .map((c) => c.type.replace(/_/g, " "))
+                        .map((c) => t(`exerciseType.${c.type}`))
                         .join(" · ")}
                     </Typography>
                   </CardContent>
