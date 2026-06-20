@@ -56,7 +56,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           size="large"
           fullWidth
           onClick={() => handleAnswer(true)}
-          sx={{ py: 2.5, fontSize: "1.15rem", bgcolor: "#4A90D9", "&:hover": { bgcolor: "#3A7BC8" }, boxShadow: "0 4px 12px rgba(74,144,217,0.35)" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", bgcolor: "white", color: "text.primary", border: "3px solid #bbaaf0", boxShadow: "none", "&:hover": { bgcolor: "#f5f2ff", borderColor: "#a090e0", boxShadow: "none" } }}
         >
           {t("exercise.yes")}
         </Button>
@@ -65,7 +65,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           size="large"
           fullWidth
           onClick={() => handleAnswer(false)}
-          sx={{ py: 2.5, fontSize: "1.15rem", bgcolor: "#4A90D9", "&:hover": { bgcolor: "#3A7BC8" }, boxShadow: "0 4px 12px rgba(74,144,217,0.35)" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", bgcolor: "white", color: "text.primary", border: "3px solid #bbaaf0", boxShadow: "none", "&:hover": { bgcolor: "#f5f2ff", borderColor: "#a090e0", boxShadow: "none" } }}
         >
           {t("exercise.no")}
         </Button>
