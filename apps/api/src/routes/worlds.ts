@@ -28,4 +28,12 @@ export async function worldRoutes(app: FastifyInstance) {
       orderBy: { order: "asc" },
     });
   });
+
+  // Brands belonging to this world (matched by difficulty === world.order)
+  app.get<{ Params: { id: string } }>("/worlds/:id/brands", async (request, reply) => {
+    const id = Number(request.params.id);
+    const world = await prisma.world.findUnique({ where: { id } });
+    if (!world) return reply.code(404).send({ error: "World not found" });
+    return prisma.brand.findMany({ where: { difficulty: world.order } });
+  });
 }

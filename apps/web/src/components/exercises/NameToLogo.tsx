@@ -18,10 +18,22 @@ export function NameToLogo({ exercise, brandMap, onAnswer }: Props) {
 
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 520, mx: "auto" }}>
-      <Typography variant="h5" fontWeight="bold" textAlign="center">
-        {correct.name}
-      </Typography>
-      <Typography variant="h6" textAlign="center">
+      <Box
+        sx={{
+          bgcolor: "white",
+          borderRadius: 4,
+          px: 4,
+          py: 2,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="h5" fontWeight={900} color="primary">
+          {correct.name}
+        </Typography>
+      </Box>
+
+      <Typography variant="h6" fontWeight={700} textAlign="center">
         {t("exercise.nameToLogo.question")}
       </Typography>
 
@@ -36,14 +48,14 @@ export function NameToLogo({ exercise, brandMap, onAnswer }: Props) {
                   bgcolor: "white",
                   borderRadius: 3,
                   p: 2,
-                  boxShadow: 2,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.10)",
                   cursor: "pointer",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   aspectRatio: "1",
-                  transition: "transform 0.1s",
-                  "&:hover": { transform: "scale(1.04)", boxShadow: 4 },
+                  transition: "transform 0.12s, box-shadow 0.12s",
+                  "&:hover": { transform: "scale(1.05)", boxShadow: "0 8px 24px rgba(0,0,0,0.18)" },
                   "&:active": { transform: "scale(0.97)" },
                 }}
               >

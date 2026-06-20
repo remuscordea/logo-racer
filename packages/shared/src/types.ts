@@ -24,7 +24,7 @@ export interface World {
 
 export interface ExerciseConfig {
   type: ExerciseType;
-  brandIds: number[];
+  count: number;
 }
 
 export interface Level {

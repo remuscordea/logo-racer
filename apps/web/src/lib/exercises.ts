@@ -61,16 +61,15 @@ export function shuffle<T>(arr: T[]): T[] {
 function pickDistractors(
   correctId: number,
   correctDifficulty: number,
-  brands: Brand[],
+  allBrands: Brand[],
   count: number,
 ): Brand[] {
-  const others = brands.filter((b) => b.id !== correctId);
+  const others = allBrands.filter((b) => b.id !== correctId);
   const sameDiff = others.filter((b) => b.difficulty === correctDifficulty);
   const adjDiff = others.filter(
     (b) => Math.abs(b.difficulty - correctDifficulty) === 1,
   );
   const pool = shuffle([...sameDiff, ...adjDiff]);
-  // fill up from remaining if pool still short
   if (pool.length < count) {
     const rest = shuffle(others.filter((b) => !pool.some((p) => p.id === b.id)));
     pool.push(...rest);
@@ -82,26 +81,32 @@ function pickDistractors(
 
 const MAX_EXERCISES = 5;
 
-export function buildQueue(level: Level, brands: Brand[]): Exercise[] {
-  const brandMap = new Map(brands.map((b) => [b.id, b]));
+/**
+ * @param level      — the level (exerciseConfig has {type, count})
+ * @param worldBrands — brands that belong to this level's world (random pool)
+ * @param allBrands  — all brands in DB (used for distractors from other worlds)
+ */
+export function buildQueue(
+  level: Level,
+  worldBrands: Brand[],
+  allBrands: Brand[],
+): Exercise[] {
   const exercises: Exercise[] = [];
 
   for (const config of level.exerciseConfig) {
-    const configBrands = config.brandIds
-      .map((id) => brandMap.get(id))
-      .filter(Boolean) as Brand[];
+    const pool = shuffle(worldBrands);
+    const count = Math.min(config.count, pool.length);
 
     if (config.type === "MATCHING") {
-      const pairs = shuffle(configBrands).slice(0, 5);
       exercises.push({
         kind: "MATCHING",
         id: uid(),
         isRetry: false,
-        pairIds: pairs.map((b) => b.id),
+        pairIds: pool.slice(0, Math.min(count, 5)).map((b) => b.id),
       });
     } else if (config.type === "LOGO_TO_NAME" || config.type === "NAME_TO_LOGO") {
-      for (const brand of configBrands) {
-        const distractors = pickDistractors(brand.id, brand.difficulty, brands, 3);
+      for (const brand of pool.slice(0, count)) {
+        const distractors = pickDistractors(brand.id, brand.difficulty, allBrands, 3);
         const optionIds = shuffle([brand.id, ...distractors.map((d) => d.id)]);
         exercises.push({
           kind: config.type,
@@ -112,11 +117,11 @@ export function buildQueue(level: Level, brands: Brand[]): Exercise[] {
         });
       }
     } else if (config.type === "TRUE_FALSE") {
-      for (const brand of configBrands) {
+      for (const brand of pool.slice(0, count)) {
         const showCorrect = Math.random() > 0.5;
         const shownBrandId = showCorrect
           ? brand.id
-          : (pickDistractors(brand.id, brand.difficulty, brands, 1)[0]?.id ?? brand.id);
+          : (pickDistractors(brand.id, brand.difficulty, allBrands, 1)[0]?.id ?? brand.id);
         exercises.push({
           kind: "TRUE_FALSE",
           id: uid(),

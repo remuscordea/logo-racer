@@ -23,29 +23,30 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
 
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 400, mx: "auto" }}>
-      <Typography variant="h6" textAlign="center">
+      <Typography variant="h6" fontWeight={700} textAlign="center">
         <Trans
           i18nKey="exercise.trueFalse.question"
           values={{ name: target.name }}
-          components={{ bold: <Box component="span" fontWeight="bold" /> }}
+          components={{ bold: <Box component="span" fontWeight={900} color="primary.main" /> }}
         />
       </Typography>
 
       <Box
         sx={{
           bgcolor: "white",
-          borderRadius: 3,
-          p: 2,
-          boxShadow: 2,
+          borderRadius: 4,
+          p: 3,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
           display: "flex",
           justifyContent: "center",
+          width: "100%",
         }}
       >
         <Box
           component="img"
           src={shown.logoPngPath}
           alt="Brand logo"
-          sx={{ width: 160, height: 160, objectFit: "contain" }}
+          sx={{ width: 180, height: 180, objectFit: "contain" }}
         />
       </Box>
 
@@ -56,7 +57,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           size="large"
           fullWidth
           onClick={() => handleAnswer(true)}
-          sx={{ borderRadius: 3, py: 2, fontSize: "1.1rem", textTransform: "none" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(46,213,115,0.4)" }}
         >
           {t("exercise.yes")}
         </Button>
@@ -66,7 +67,7 @@ export function TrueFalse({ exercise, brandMap, onAnswer }: Props) {
           size="large"
           fullWidth
           onClick={() => handleAnswer(false)}
-          sx={{ borderRadius: 3, py: 2, fontSize: "1.1rem", textTransform: "none" }}
+          sx={{ py: 2.5, fontSize: "1.15rem", boxShadow: "0 4px 12px rgba(255,71,87,0.4)" }}
         >
           {t("exercise.no")}
         </Button>

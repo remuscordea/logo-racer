@@ -22,9 +22,6 @@ async function main() {
 
   console.log("Seeding levels…");
 
-  const brands = await prisma.brand.findMany();
-  const brandByName = Object.fromEntries(brands.map((b) => [b.name, b]));
-
   const worlds = await prisma.world.findMany();
   const worldByName = Object.fromEntries(worlds.map((w) => [w.name, w]));
 
@@ -32,17 +29,8 @@ async function main() {
     const world = worldByName[l.worldName];
     if (!world) throw new Error(`World not found: ${l.worldName}`);
 
-    const exerciseConfig = l.exerciseConfig.map((ec) => ({
-      type: ec.type,
-      brandIds: ec.brandNames.map((name) => {
-        const brand = brandByName[name];
-        if (!brand) throw new Error(`Brand not found: ${name}`);
-        return brand.id;
-      }),
-    }));
-
     await prisma.level.create({
-      data: { worldId: world.id, order: l.order, exerciseConfig },
+      data: { worldId: world.id, order: l.order, exerciseConfig: l.exerciseConfig },
     });
   }
 
