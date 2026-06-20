@@ -16,5 +16,6 @@ export const api = {
   brandsByDifficulty: (d: number) => get<Brand[]>(`/brands?difficulty=${d}`),
   worlds: () => get<WorldWithCount[]>("/worlds"),
   world: (id: number) => get<WorldWithLevels>(`/worlds/${id}`),
+  worldBrands: (worldId: number) => get<Brand[]>(`/worlds/${worldId}/brands`),
   level: (id: number) => get<Level>(`/levels/${id}`),
 };

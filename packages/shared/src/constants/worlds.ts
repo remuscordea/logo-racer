@@ -29,68 +29,20 @@ export const INITIAL_WORLDS: WorldSeed[] = [
 export interface LevelSeed {
   worldName: string;
   order: number;
-  exerciseConfig: Array<{
-    type: string;
-    brandNames: string[];
-  }>;
+  exerciseConfig: Array<{ type: string; count: number }>;
 }
 
 export const INITIAL_LEVELS: LevelSeed[] = [
   // World 1
-  {
-    worldName: "Famous Brands",
-    order: 1,
-    exerciseConfig: [{ type: "LOGO_TO_NAME", brandNames: ["BMW", "Ferrari", "Toyota", "VW"] }],
-  },
-  {
-    worldName: "Famous Brands",
-    order: 2,
-    exerciseConfig: [{ type: "NAME_TO_LOGO", brandNames: ["BMW", "Ferrari", "Toyota", "VW", "Ford"] }],
-  },
-  {
-    worldName: "Famous Brands",
-    order: 3,
-    exerciseConfig: [
-      { type: "MATCHING",   brandNames: ["BMW", "Ferrari", "Ford", "Tesla", "Toyota", "VW"] },
-      { type: "TRUE_FALSE", brandNames: ["BMW", "Ferrari", "Ford", "Tesla", "Toyota", "VW"] },
-    ],
-  },
+  { worldName: "Famous Brands",  order: 1, exerciseConfig: [{ type: "LOGO_TO_NAME", count: 4 }] },
+  { worldName: "Famous Brands",  order: 2, exerciseConfig: [{ type: "NAME_TO_LOGO", count: 5 }] },
+  { worldName: "Famous Brands",  order: 3, exerciseConfig: [{ type: "MATCHING", count: 4 }, { type: "TRUE_FALSE", count: 4 }] },
   // World 2
-  {
-    worldName: "On the Street",
-    order: 1,
-    exerciseConfig: [{ type: "LOGO_TO_NAME", brandNames: ["Audi", "Kia", "Renault", "Volvo"] }],
-  },
-  {
-    worldName: "On the Street",
-    order: 2,
-    exerciseConfig: [{ type: "NAME_TO_LOGO", brandNames: ["Audi", "Kia", "Renault", "Volvo", "Hyundai"] }],
-  },
-  {
-    worldName: "On the Street",
-    order: 3,
-    exerciseConfig: [
-      { type: "MATCHING",   brandNames: ["Audi", "Dacia", "Hyundai", "Kia", "Renault", "Volvo"] },
-      { type: "TRUE_FALSE", brandNames: ["Audi", "Dacia", "Hyundai", "Kia", "Renault", "Volvo"] },
-    ],
-  },
+  { worldName: "On the Street",  order: 1, exerciseConfig: [{ type: "LOGO_TO_NAME", count: 4 }] },
+  { worldName: "On the Street",  order: 2, exerciseConfig: [{ type: "NAME_TO_LOGO", count: 5 }] },
+  { worldName: "On the Street",  order: 3, exerciseConfig: [{ type: "MATCHING", count: 4 }, { type: "TRUE_FALSE", count: 4 }] },
   // World 3
-  {
-    worldName: "Special Cars",
-    order: 1,
-    exerciseConfig: [{ type: "LOGO_TO_NAME", brandNames: ["Nissan", "Porsche", "Citroën", "Suzuki"] }],
-  },
-  {
-    worldName: "Special Cars",
-    order: 2,
-    exerciseConfig: [{ type: "NAME_TO_LOGO", brandNames: ["Nissan", "Porsche", "Citroën", "Suzuki", "Subaru"] }],
-  },
-  {
-    worldName: "Special Cars",
-    order: 3,
-    exerciseConfig: [
-      { type: "MATCHING",   brandNames: ["Bentley", "Citroën", "Nissan", "Porsche", "Subaru", "Suzuki"] },
-      { type: "TRUE_FALSE", brandNames: ["Bentley", "Citroën", "Nissan", "Porsche", "Subaru", "Suzuki"] },
-    ],
-  },
+  { worldName: "Special Cars",   order: 1, exerciseConfig: [{ type: "LOGO_TO_NAME", count: 4 }] },
+  { worldName: "Special Cars",   order: 2, exerciseConfig: [{ type: "NAME_TO_LOGO", count: 5 }] },
+  { worldName: "Special Cars",   order: 3, exerciseConfig: [{ type: "MATCHING", count: 4 }, { type: "TRUE_FALSE", count: 4 }] },
 ];

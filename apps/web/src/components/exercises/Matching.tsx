@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export function Matching({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
+
   const logos = useMemo(
     () => shuffle(exercise.pairIds.map((id) => brandMap.get(id)!)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,7 +29,7 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
 
   const [selectedLogoId, setSelectedLogoId] = useState<number | null>(null);
   const [matched, setMatched] = useState<Set<number>>(new Set());
-  const [shaking, setShaking] = useState<number | null>(null); // logoId that's shaking
+  const [shaking, setShaking] = useState<number | null>(null);
   const calledRef = useRef(false);
 
   useEffect(() => {
@@ -57,8 +60,8 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
 
   return (
     <Stack alignItems="center" spacing={2} sx={{ width: "100%", maxWidth: 520, mx: "auto" }}>
-      <Typography variant="h6" textAlign="center">
-        Match each logo to its brand name!
+      <Typography variant="h6" fontWeight={700} textAlign="center">
+        {t("exercise.matching.question")}
       </Typography>
 
       <style>{`
@@ -83,24 +86,25 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                 key={brand.id}
                 onClick={() => handleLogoClick(brand.id)}
                 sx={{
-                  bgcolor: isMatched ? "success.light" : isSelected ? "primary.light" : "white",
-                  border: 2,
-                  borderColor: isMatched ? "success.main" : isSelected ? "primary.main" : "grey.300",
+                  bgcolor: isMatched ? "success.light" : isSelected ? "#f5f2ff" : "white",
+                  border: "3px solid",
+                  borderColor: isMatched ? "success.main" : isSelected ? "#a090e0" : "#bbaaf0",
                   borderRadius: 3,
-                  p: 1,
+                  p: 1.5,
                   display: "flex",
                   justifyContent: "center",
                   cursor: isMatched ? "default" : "pointer",
-                  opacity: isMatched ? 0.7 : 1,
+                  opacity: isMatched ? 0.75 : 1,
                   animation: isShaking ? "shake 0.45s ease" : "none",
                   transition: "background-color 0.15s, border-color 0.15s",
+                  boxShadow: "none",
                 }}
               >
                 <Box
                   component="img"
                   src={brand.logoPngPath}
                   alt={brand.name}
-                  sx={{ width: 56, height: 56, objectFit: "contain" }}
+                  sx={{ width: 60, height: 60, objectFit: "contain" }}
                 />
               </Box>
             );
@@ -117,20 +121,21 @@ export function Matching({ exercise, brandMap, onAnswer }: Props) {
                 onClick={() => handleNameClick(brand.id)}
                 sx={{
                   bgcolor: isMatched ? "success.light" : "white",
-                  border: 2,
-                  borderColor: isMatched ? "success.main" : "grey.300",
+                  border: "3px solid",
+                  borderColor: isMatched ? "success.main" : "#bbaaf0",
                   borderRadius: 3,
                   px: 2,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  minHeight: 72,
+                  minHeight: 76,
                   cursor: isMatched ? "default" : "pointer",
-                  opacity: isMatched ? 0.7 : 1,
-                  transition: "background-color 0.15s",
+                  opacity: isMatched ? 0.75 : 1,
+                  transition: "background-color 0.15s, border-color 0.15s",
+                  boxShadow: "none",
                 }}
               >
-                <Typography fontWeight="bold" textAlign="center" fontSize="0.9rem">
+                <Typography fontWeight={800} textAlign="center" fontSize="0.9rem">
                   {brand.name}
                 </Typography>
               </Box>

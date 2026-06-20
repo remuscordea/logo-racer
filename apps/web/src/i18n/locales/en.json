@@ -2,5 +2,67 @@
   "app": {
     "title": "Logo Racer",
     "tagline": "Learn car brands and race to the finish!"
+  },
+  "nav": {
+    "worlds": "← Worlds"
+  },
+  "worlds": {
+    "title": "Choose a world",
+    "worldNumber": "World {{order}}",
+    "levelCount_one": "{{count}} level",
+    "levelCount_other": "{{count}} levels",
+    "order": {
+      "1": {
+        "name": "Famous Brands",
+        "description": "The most famous car brands in the world."
+      },
+      "2": {
+        "name": "On the Street",
+        "description": "Cars you see every day on the road."
+      },
+      "3": {
+        "name": "Special Cars",
+        "description": "Sporty and special cars."
+      }
+    }
+  },
+  "levels": {
+    "label": "Level {{order}}"
+  },
+  "exerciseType": {
+    "LOGO_TO_NAME": "Logo → Name",
+    "NAME_TO_LOGO": "Name → Logo",
+    "MATCHING": "Matching",
+    "TRUE_FALSE": "True / False"
+  },
+  "exercise": {
+    "tryAgain": "Let's try again!",
+    "yes": "✅ Yes",
+    "no": "❌ No",
+    "logoToName": {
+      "question": "What brand is this?"
+    },
+    "nameToLogo": {
+      "question": "Which logo is this brand?"
+    },
+    "trueFalse": {
+      "question": "Is this the logo of <bold>{{name}}</bold>?"
+    },
+    "matching": {
+      "question": "Match each logo to its brand name!"
+    }
+  },
+  "summary": {
+    "perfect": "Perfect! 🎉",
+    "wellDone": "Well done! 👍",
+    "keepGoing": "Keep going! 💪",
+    "correctOnFirstTry": "correct on first try",
+    "playAgain": "Play again",
+    "backToLevels": "Back to levels"
+  },
+  "error": {
+    "apiUnreachable": "Could not reach the API. Is it running on localhost:3001?",
+    "loadFailed": "Could not load content. Please try again.",
+    "levelLoadFailed": "Failed to load level. Is the API running on localhost:3001?"
   }
 }

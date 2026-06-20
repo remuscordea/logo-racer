@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -12,29 +13,31 @@ interface Props {
 }
 
 export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
+  const { t } = useTranslation();
   const correct = brandMap.get(exercise.correctId)!;
 
   return (
     <Stack alignItems="center" spacing={3} sx={{ width: "100%", maxWidth: 480, mx: "auto" }}>
-      <Typography variant="h6" textAlign="center">
-        What brand is this?
+      <Typography variant="h6" fontWeight={700} textAlign="center" color="text.primary">
+        {t("exercise.logoToName.question")}
       </Typography>
 
       <Box
         sx={{
           bgcolor: "white",
-          borderRadius: 3,
-          p: 2,
-          boxShadow: 2,
+          borderRadius: 4,
+          p: 3,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
           display: "flex",
           justifyContent: "center",
+          width: "100%",
         }}
       >
         <Box
           component="img"
           src={correct.logoPngPath}
           alt="Brand logo"
-          sx={{ width: 160, height: 160, objectFit: "contain" }}
+          sx={{ width: 180, height: 180, objectFit: "contain" }}
         />
       </Box>
 
@@ -44,10 +47,19 @@ export function LogoToName({ exercise, brandMap, onAnswer }: Props) {
           return (
             <Button
               key={id}
-              variant="outlined"
+              variant="contained"
               size="large"
               onClick={() => onAnswer(id === exercise.correctId)}
-              sx={{ borderRadius: 3, py: 1.5, fontSize: "1rem", textTransform: "none" }}
+              sx={{
+                borderRadius: 3,
+                py: 2,
+                fontSize: "1rem",
+                bgcolor: "white",
+                color: "text.primary",
+                border: "3px solid #bbaaf0",
+                boxShadow: "none",
+                "&:hover": { bgcolor: "#f5f2ff", borderColor: "#a090e0", boxShadow: "none" },
+              }}
             >
               {brand.name}
             </Button>
