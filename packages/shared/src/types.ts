@@ -1,9 +1,10 @@
-export enum ExerciseType {
-  LOGO_TO_NAME = "LOGO_TO_NAME",
-  NAME_TO_LOGO = "NAME_TO_LOGO",
-  MATCHING = "MATCHING",
-  TRUE_FALSE = "TRUE_FALSE",
-}
+export const ExerciseType = {
+  LOGO_TO_NAME: "LOGO_TO_NAME",
+  NAME_TO_LOGO: "NAME_TO_LOGO",
+  MATCHING: "MATCHING",
+  TRUE_FALSE: "TRUE_FALSE",
+} as const;
+export type ExerciseType = (typeof ExerciseType)[keyof typeof ExerciseType];
 
 export interface Brand {
   id: number;
